@@ -9,7 +9,7 @@ Simple incident tracking app with a Spring Boot backend and React frontend.
 cd backend
 ./mvnw spring-boot:run
 ```
-Runs on http://localhost:8080. Uses H2 in-memory DB so no setup needed.
+Runs on http://localhost:8080. Uses H2 in-memory DB.
 
 **Frontend**
 ```bash
@@ -21,11 +21,11 @@ Runs on http://localhost:5173.
 
 ## Design Decisions
 
-- Used **H2 in-memory database** for zero-config setup. No external DB needed.
-- **Pagination and filtering happen on the DB side** — frontend sends `?page=0&size=10`.
-- Used `@Transactional(isolation = READ_COMMITTED)` on updates for concurrency safety.
-- Standard **Controller → Service → Repository** structure with DTOs.
-- Input validation via Jakarta annotations (`@NotBlank`, `@NotNull`).
+- Used **H2 in-memory database**
+- **Pagination and filtering happen on the DB side** — frontend sends ?page=0&size=10
+- Backend can handle multiple concurrent requests using @Transactional(isolation = READ_COMMITTED)
+- Standard **Controller → Service → Repository** structure with DTOs
+- Input validation via Jakarta annotations (`@NotBlank`, `@NotNull`)
 
 ## Tech
 
