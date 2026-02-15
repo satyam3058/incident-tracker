@@ -1,0 +1,32 @@
+#!/bin/sh
+# Maven Wrapper startup script for Unix/macOS
+
+set -e
+
+if [ -n "$JAVA_HOME" ]; then
+  JAVACMD="$JAVA_HOME/bin/java"
+else
+  JAVACMD="$(which java)"
+fi
+
+if [ ! -x "$JAVACMD" ]; then
+  echo "Java not found. Install JDK 17+ and set JAVA_HOME." >&2
+  exit 1
+fi
+
+WRAPPER_JAR="$(dirname "$0")/.mvn/wrapper/maven-wrapper.jar"
+WRAPPER_URL="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar"
+
+if [ ! -f "$WRAPPER_JAR" ]; then
+  echo "Downloading Maven Wrapper JAR..."
+  if command -v curl > /dev/null; then
+    curl -sSL "$WRAPPER_URL" -o "$WRAPPER_JAR"
+  elif command -v wget > /dev/null; then
+    wget -q "$WRAPPER_URL" -O "$WRAPPER_JAR"
+  else
+    echo "Neither curl nor wget found. Cannot download wrapper." >&2
+    exit 1
+  fi
+fi
+
+exec "$JAVACMD" $MAVEN_OPTS -classpath "$WRAPPER_JAR" org.apache.maven.wrapper.MavenWrapperMain "$@"
